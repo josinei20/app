@@ -1,0 +1,29 @@
+name: Build iOS App
+
+on:
+  push:
+    branches:
+      - main  # ou qualquer outro branch que você deseja
+
+jobs:
+  build:
+    runs-on: macos-latest  # Usando o macOS disponível no GitHub Actions
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install cython kivy buildozer
+
+    - name: Build app
+      run: |
+        cd /caminho/para/seu/projeto
+        buildozer ios debug
